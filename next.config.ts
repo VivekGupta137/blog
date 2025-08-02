@@ -1,7 +1,21 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
+import remarkGfm from "remark-gfm";
+import remarkToc from "remark-toc";
+import rehypeSlug from "rehype-slug";
+import rehypeKatex from "rehype-katex";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+    /* config options here */
+    pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+    options: {
+        remarkPlugins: [remarkGfm, [remarkToc, { heading: "Contents" }]],
+        rehypePlugins: [rehypeSlug, [rehypeKatex, { strict: false }]],
+    },
+});
+
+// Merge MDX config with Next.js config
+export default withMDX(nextConfig);

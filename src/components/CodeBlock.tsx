@@ -176,10 +176,10 @@ export default function CodeBlock({
                         userSelect: "none",
                         fontSize: isMobile ? "12px" : "14px",
                     }}
-                    wrapLines={false}
+                    wrapLines={true}
                     lineProps={(lineNumber) => {
-                        const isHighlighted =
-                            highlightedLines.includes(lineNumber);
+                        const isHighlighted = highlightedLines.includes(lineNumber);
+                        
                         return {
                             style: {
                                 backgroundColor: isHighlighted
@@ -191,7 +191,7 @@ export default function CodeBlock({
                                 paddingLeft: isMobile ? "0.5rem" : "0.75rem",
                                 paddingRight: isMobile ? "0.5rem" : "1rem",
                                 display: "block",
-                                whiteSpace: "pre",
+                                width: "100%",
                             },
                         };
                     }}

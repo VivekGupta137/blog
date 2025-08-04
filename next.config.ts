@@ -20,7 +20,10 @@ const withMDX = createMDX({
             remarkFrontmatter,
             [remarkToc, { heading: "Contents" }],
         ],
-        rehypePlugins: [rehypeSlug, [rehypeKatex, { strict: false }]],
+        rehypePlugins: [
+            rehypeSlug, 
+            [rehypeKatex, { strict: false }],
+        ],
     },
 });
 

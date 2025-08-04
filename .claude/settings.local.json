@@ -1,7 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(mkdir:*)",
+      "Bash(find:*)",
+      "Bash(npx magicui-cli init:*)",
+      "WebFetch(domain:magicui.design)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(env)",
+      "Bash(npx tsc:*)"
     ],
     "deny": []
   }

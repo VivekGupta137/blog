@@ -1,5 +1,3 @@
-import { contentFiles } from "@/util/util";
-import Link from "next/link";
 
 export default function layout({ children }: { children: React.ReactNode }) {
     // Create any shared layout or styles here

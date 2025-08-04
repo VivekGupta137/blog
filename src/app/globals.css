@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Prevent horizontal overflow on mobile */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 /* Mermaid diagram styling */
 .mermaid-diagram {
   display: flex;
@@ -75,11 +85,35 @@ pre[class*="language-"] {
   /* Ensure better touch scrolling on mobile */
   .overflow-x-auto {
     -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    width: 100%;
   }
   
   /* Adjust code block padding for mobile */
   pre[class*="language-"] {
     font-size: 12px !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  /* Ensure code blocks don't break mobile layout */
+  code {
+    word-break: break-all;
+    overflow-wrap: break-word;
+  }
+  
+  /* Mobile container constraints */
+  .relative.group {
+    max-width: 100vw;
+    width: 100%;
+  }
+  
+  /* Override prose styles for code blocks on mobile */
+  .prose pre {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 

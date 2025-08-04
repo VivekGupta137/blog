@@ -1,2 +1,85 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+/* Mermaid diagram styling */
+.mermaid-diagram {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Code block highlighting - light theme */
+.highlighted-line {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  border-left: 3px solid #3b82f6 !important;
+}
+
+.highlighted-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(59, 130, 246, 0.1);
+  z-index: -1;
+}
+
+/* Ensure proper scrolling in code blocks */
+.react-syntax-highlighter-line-number,
+.token-line {
+  min-height: auto !important;
+}
+
+pre[class*="language-"] {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+  white-space: pre !important;
+}
+
+/* Custom scrollbar styling for code blocks */
+.overflow-x-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db #f3f4f6;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  .overflow-x-auto::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  /* Ensure better touch scrolling on mobile */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Adjust code block padding for mobile */
+  pre[class*="language-"] {
+    font-size: 12px !important;
+  }
+}
+

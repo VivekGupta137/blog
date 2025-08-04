@@ -5,15 +5,6 @@ import remarkToc from "remark-toc";
 import rehypeSlug from "rehype-slug";
 import rehypeKatex from "rehype-katex";
 import remarkFrontmatter from "remark-frontmatter";
-import rehypePrettyCode from "rehype-pretty-code";
-
-const options = {
-    theme: {
-        dark: "github-dark-dimmed",
-        light: "github-light-default",
-    },
-    keepBackground: false,
-};
 
 const nextConfig: NextConfig = {
     /* config options here */
@@ -32,7 +23,6 @@ const withMDX = createMDX({
         rehypePlugins: [
             rehypeSlug,
             [rehypeKatex, { strict: false }],
-            // [rehypePrettyCode, options],
         ],
     },
 });

@@ -5,6 +5,7 @@ import remarkToc from "remark-toc";
 import rehypeSlug from "rehype-slug";
 import rehypeKatex from "rehype-katex";
 import remarkFrontmatter from "remark-frontmatter";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 const nextConfig: NextConfig = {
     /* config options here */
@@ -21,8 +22,14 @@ const withMDX = createMDX({
             [remarkToc, { heading: "Contents" }],
         ],
         rehypePlugins: [
-            rehypeSlug, 
+            rehypeSlug,
             [rehypeKatex, { strict: false }],
+            [
+                rehypeAutolinkHeadings,
+                {
+                    behavior: "append",
+                },
+            ],
         ],
     },
 });

@@ -9,7 +9,11 @@
       "Bash(cat:*)",
       "Bash(ls:*)",
       "Bash(env)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npm run dev:*)",
+      "Bash(pkill:*)",
+      "Bash(true)",
+      "WebFetch(domain:localhost)"
     ],
     "deny": []
   }

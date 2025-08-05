@@ -53,11 +53,12 @@ public class Singleton {
 ```
 
 
-#### pros:
+**pros:**
 - Controlled access to the sole instance
 - Reduced memory footprint
 - Global point of access
-#### cons:
+
+**cons:**
 - Not thread-safe; requires synchronization for multi-threaded applications
 
 
@@ -92,11 +93,12 @@ public class Singleton {
 }
 ```
 
-#### pros:
+**pros:**
 - Controlled access to the sole instance
 - Thread-safe
 - Global point of access
-#### cons:
+
+**cons:**
 - Performance overhead due to synchronization
 - Can lead to contention* in multi-threaded applications
 
@@ -137,11 +139,12 @@ public class Singleton {
 }
 ```
 
-#### pros:
+**pros:**
 - Controlled access to the sole instance
 - Thread-safe
 - Reduced performance overhead compared to synchronized method
-#### cons:
+
+**cons:**
 - More complex implementation
 - Still has some performance overhead due to synchronization
 
@@ -173,11 +176,12 @@ public class Singleton {
 }
 ```
 
-#### pros:
+**pros:**
 - Simple and easy to implement
 - Thread-safe without synchronization
 - Instance is created at class loading time, ensuring it's always available
-#### cons:
+
+**cons:**
 - Instance is created even if it's never used, which can lead to unnecessary resource consumption
 
 
@@ -214,11 +218,12 @@ public class BillPughSingleton {
 }
 ```
 
-#### pros:
+**pros:**
 - Thread-safe without synchronization
 - Lazy initialization
 - No performance overhead from synchronization
-#### cons:
+
+**cons:**
 - More complex implementation
 
 ### 6. Enum Singleton
@@ -247,11 +252,12 @@ public class Main {
 }
 ```
 
-#### pros:
+**pros:**
 - Simple and concise implementation
 - Thread-safe by design
 - No need for synchronization
-#### cons:
+
+**cons:**
 - Cannot extend the enum class, limiting flexibility
 
 ### 7. Static Block Initialization
@@ -284,11 +290,12 @@ public class StaticBlockSingleton {
 ```
 
 
-#### pros:
+**pros:**
 - Simple and easy to implement
 - Thread-safe without synchronization
 - Allows exception handling during instance creation
-#### cons:
+
+**cons:**
 - More complex implementation
 - Instance is created at class loading time, which can lead to unnecessary resource consumption if the instance is never used
 
@@ -313,11 +320,12 @@ public class ThreadLocalSingleton {
 }
 ```
 
-#### pros:
+**pros:**
 - Each thread has its own instance, avoiding contention
 - Reduces memory footprint by not sharing instances between threads
 - Useful in multi-threaded applications where each thread needs its own instance
-#### cons:
+
+**cons:**
 - Increased complexity
 - Not suitable for scenarios where a single instance is needed across all threads
 
@@ -343,11 +351,12 @@ public class RegistrySingleton {
 }
 ```
 
-#### pros:
+**pros:**
 - Allows for multiple singleton instances identified by unique keys
 - Provides a centralized registry for managing instances
 - Can be useful in scenarios where different configurations are needed for different instances
-#### cons:
+
+**cons:**
 - Increased complexity
 - Potential memory overhead due to storing multiple instances
 - Synchronization may be needed if accessed by multiple threads

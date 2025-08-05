@@ -55,7 +55,7 @@ export function FileTreeBlog({
     };
 
     return (
-        <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-lg border bg-background">
+        <div className="relative flex flex-col items-center justify-center overflow-hidden rounded-lg border bg-background shadow-lg mb-5">
             <Tree
                 className="overflow-hidden rounded-md bg-background p-2"
                 initialExpandedItems={["1"]}

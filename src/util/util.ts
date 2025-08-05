@@ -3,8 +3,8 @@ import path from "path";
 
 import "server-only";
 
-function getAllMdxFiles(dir, basePath = "") {
-    const files = [];
+function getAllMdxFiles(dir: string, basePath = ""): string[] {
+    const files: string[] = [];
     const items = fs.readdirSync(dir, { withFileTypes: true });
 
     for (const item of items) {
@@ -21,9 +21,18 @@ function getAllMdxFiles(dir, basePath = "") {
     return files;
 }
 
-function buildFileTree(dir, basePath = "") {
+type FileTreeItem = {
+    id: string;
+    name: string;
+    isSelectable: boolean;
+    children?: FileTreeItem[];
+    type: "file" | "folder";
+    url?: string; // Only for files
+};
+
+function buildFileTree(dir: string, basePath = ""): FileTreeItem[] {
     const items = fs.readdirSync(dir, { withFileTypes: true });
-    const tree = [];
+    const tree: FileTreeItem[] = [];
 
     for (const item of items) {
         const fullPath = path.join(dir, item.name);
@@ -35,13 +44,16 @@ function buildFileTree(dir, basePath = "") {
                 id: relativePath,
                 name: item.name,
                 isSelectable: true,
-                children: children.length > 0 ? children : undefined
+                children: children.length > 0 ? children : undefined,
+                type: "folder",
             });
         } else if (item.name.endsWith(".mdx")) {
             tree.push({
                 id: relativePath,
                 name: item.name,
-                isSelectable: true
+                isSelectable: true,
+                type: "file",
+                url: `/blog/${relativePath.replace(".mdx", "")}`,
             });
         }
     }
@@ -53,34 +65,42 @@ export const contentFiles = () => {
     const contentDir = path.join(process.cwd(), "src", "content");
     const slugs = getAllMdxFiles(contentDir);
     return slugs.map((slug) => {
-        const title = slug.split("/").pop().replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-        const category = slug.includes('/') ? slug.split('/')[0] : 'General';
+        const title = slug
+            .split("/")
+            .pop()
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, (l) => l.toUpperCase());
+        const category = slug.includes("/") ? slug.split("/")[0] : "General";
         const filePath = path.join(contentDir, `${slug}.mdx`);
-        
+
         // Extract first line as description (basic implementation)
         let description = "No description available";
         try {
-            const content = fs.readFileSync(filePath, 'utf-8');
-            const lines = content.split('\n').filter(line => line.trim() && !line.startsWith('#'));
+            const content = fs.readFileSync(filePath, "utf-8");
+            const lines = content
+                .split("\n")
+                .filter((line) => line.trim() && !line.startsWith("#"));
             if (lines.length > 0) {
-                description = lines[0].replace(/[#*`]/g, '').trim().substring(0, 150) + '...';
+                description =
+                    lines[0].replace(/[#*`]/g, "").trim().substring(0, 150) +
+                    "...";
             }
         } catch {
             // Fallback description
             description = `Learn about ${title.toLowerCase()}`;
         }
-        
+
         return {
             title,
             url: `/blog/${slug}`,
             slug,
             category: category.charAt(0).toUpperCase() + category.slice(1),
-            description
+            description,
         };
     });
 };
 
-export const getContentFileTree = () => {
+export const getContentFileTree = (): ReturnType<typeof buildFileTree> => {
     const contentDir = path.join(process.cwd(), "src", "content");
     return buildFileTree(contentDir);
 };

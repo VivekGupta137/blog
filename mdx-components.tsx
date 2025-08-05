@@ -7,6 +7,19 @@ const components: MDXComponents = {
     // For example:
     // h1: (props) => <h1 className="text-2xl font-bold" {...props} />,
     // p: (props) => <p className="text-base" {...props} />,
+    code: (props) => {
+        const { children, ...rest } = props;
+
+        return (
+            <code
+                {...rest}
+                className="hover:bg-gray-100 rounded-md py-0.5
+ font-mono text-sm text-gray-800 "
+            >
+                {children}
+            </code>
+        );
+    },
     pre: (props) => {
         const { children, ...rest } = props;
         if (children && typeof children === "object" && "props" in children) {

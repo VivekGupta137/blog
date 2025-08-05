@@ -1,8 +1,5 @@
 "use client";
 
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { FileIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
 import React, {
@@ -47,9 +44,7 @@ const useTree = () => {
   return context;
 };
 
-interface TreeViewComponentProps extends React.HTMLAttributes<HTMLDivElement> {
-  // Extended props for tree view
-}
+interface TreeViewComponentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 type Direction = "rtl" | "ltr" | undefined;
 
@@ -139,7 +134,7 @@ const Tree = forwardRef<HTMLDivElement, TreeViewProps>(
       if (initialSelectedId) {
         expandSpecificTargetedElements(elements, initialSelectedId);
       }
-    }, [initialSelectedId, elements, expandSpecificTargetedElements]);
+    }, [initialSelectedId, elements]);
 
     const direction = dir === "rtl" ? "rtl" : "ltr";
 
@@ -207,9 +202,7 @@ const TreeIndicator = forwardRef<
 TreeIndicator.displayName = "TreeIndicator";
 
 interface FolderComponentProps
-  extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item> {
-  // Extended props for folder component
-}
+  extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item> {}
 
 type FolderProps = {
   expandedItems?: string[];
@@ -360,17 +353,18 @@ const CollapseButton = forwardRef<
     };
 
     elements.forEach(expandTree);
-  }, [setExpandedItems]);
+  }, []);
 
   const closeAll = useCallback(() => {
     setExpandedItems?.([]);
-  }, [setExpandedItems]);
+  }, []);
 
   useEffect(() => {
+    console.log(expandAll);
     if (expandAll) {
       expendAllTree(elements);
     }
-  }, [expandAll, elements, expendAllTree]);
+  }, [expandAll]);
 
   return (
     <Button

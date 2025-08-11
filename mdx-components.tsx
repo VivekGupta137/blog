@@ -16,7 +16,7 @@ const components: MDXComponents = {
     // For example:
     h2: (props) => {
         const { children, className: _, ref, ...rest } = props;
-        return <h2 className="text-4xl font-[500px]">{children as ReactNode}</h2>;
+        return <h2 {...rest} className="text-4xl font-[500px]">{children as ReactNode}</h2>;
     },
     // p: (props) => <p className="text-base" {...props} />,
     code: (props) => {

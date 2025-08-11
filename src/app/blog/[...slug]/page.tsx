@@ -19,19 +19,27 @@ function getAllMdxFiles(dir: string, basePath: string = ""): string[] {
     return files;
 }
 
+import { notFound } from "next/navigation";
+
 export default async function Page({
     params,
 }: {
     params: Promise<{ slug: string[] }>;
 }) {
-    const { slug } = await params;
-    const slugPath = slug.join("/");
-    const { default: Post, metadata } = await import(
-        `@/content/${slugPath}.mdx`
-    );
-    console.log(metadata);
+    const slugArray = (await params)?.slug ?? [];
+    const slugPath = slugArray.join("/");
 
-    return <Post />;
+    try {
+        const { default: Post, metadata } = await import(
+            `@/content/${decodeURIComponent(slugPath)}.mdx`
+        );
+        console.log("slug:", slugPath);
+
+        return <Post metadata={metadata} />;
+    } catch {
+        // If the MDX file doesn't exist or import fails, show 404 page for this route
+        notFound();
+    }
 }
 
 export function generateStaticParams() {

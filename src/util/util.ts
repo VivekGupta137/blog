@@ -65,9 +65,7 @@ export const contentFiles = () => {
     const contentDir = path.join(process.cwd(), "src", "content");
     const slugs = getAllMdxFiles(contentDir);
     return slugs.map((slug) => {
-        const title = slug
-            .split("/")
-            .pop()
+        const title = (slug.split("/").pop() || "")
             .replace(/-/g, " ")
             .replace(/\b\w/g, (l) => l.toUpperCase());
         const category = slug.includes("/") ? slug.split("/")[0] : "General";

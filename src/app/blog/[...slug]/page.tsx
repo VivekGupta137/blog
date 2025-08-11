@@ -26,7 +26,10 @@ export default async function Page({
 }) {
     const { slug } = await params;
     const slugPath = slug.join("/");
-    const { default: Post } = await import(`@/content/${slugPath}.mdx`);
+    const { default: Post, metadata } = await import(
+        `@/content/${slugPath}.mdx`
+    );
+    console.log(metadata);
 
     return <Post />;
 }

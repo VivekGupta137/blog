@@ -1,3 +1,10 @@
+export const metadata = {
+  title: 'Example MDX File',
+  description: 'An example MDX file demonstrating various code snippets and features.',
+  keywords: ['MDX', 'example', 'code snippets'],
+  authors: [{ name: 'John Doe', url: 'https://example.com' }],
+}
+
 # Example MDX File
 
 This is an example MDX file that demonstrates various code snippets and features.
@@ -5,6 +12,25 @@ This is an example MDX file that demonstrates various code snippets and features
 
 
 ### Contents
+
+## Mermaid Diagram
+
+```mermaid
+    graph TD;
+      A[Client Request]-->B[Server];
+      A-->C[CDN];
+      B-->D[Database];
+      C-->D;
+```
+
+## PlantUML Diagram
+
+```plantuml
+@startuml
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+@enduml
+```
 
 ## Server-Side Rendering Example
 
@@ -118,12 +144,171 @@ const veryLongLineToTestHorizontalScrolling = 'This is a very long line that sho
 const anotherShortLine = 'Short';
 ```
 
-## Mermaid Diagram
 
-```mermaid
-    graph TD;
-      A[Client Request]-->B[Server];
-      A-->C[CDN];
-      B-->D[Database];
-      C-->D;
+## PlantUML big Diagram
+
+```plantuml
+@startuml
+!theme toy
+
+' Defines the main namespace for the e-commerce system
+package "E-commerce System" {
+
+  ' Abstract classes and interfaces
+  abstract class AbstractUser {
+    + String userId
+    + String username
+    + String email
+    --
+    + login()
+    + logout()
+  }
+
+  interface Payable {
+    + getPaymentAmount(): double
+    + processPayment(): PaymentResult
+  }
+
+  interface Shippable {
+    + getShippingAddress(): Address
+    + getShippingWeight(): double
+  }
+
+  enum OrderStatus {
+    PENDING
+    PROCESSING
+    SHIPPED
+    DELIVERED
+    CANCELLED
+  }
+
+  enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+    REFUNDED
+  }
+
+  ' Defines the core business entities
+  package "Core Entities" {
+    class Customer extends AbstractUser {
+      + String firstName
+      + String lastName
+      + Address billingAddress
+      + Address shippingAddress
+      + List<Order> orders
+      --
+      + updateProfile()
+      + viewOrderHistory()
+    }
+
+    class Order implements Payable {
+      + String orderId
+      + Date orderDate
+      + Customer customer
+      + OrderStatus status
+      + List<LineItem> lineItems
+      --
+      + calculateTotal(): double
+      + addLineItem(LineItem): void
+    }
+
+    class LineItem {
+      + Product product
+      + int quantity
+      + double priceAtPurchase
+      --
+      + calculateSubtotal(): double
+    }
+
+    class Product implements Shippable {
+      + String productId
+      + String name
+      + String description
+      + double price
+      + double weight
+      + Category category
+      --
+      + getShippingAddress(): Address
+      + getShippingWeight(): double
+    }
+  }
+
+  ' Defines the supporting components
+  package "Supporting Services" {
+    class PaymentProcessor {
+      + processCreditCardPayment(CreditCard): PaymentResult
+      + processPayPalPayment(PayPalAccount): PaymentResult
+    }
+
+    class ShippingService {
+      + generateShippingLabel(Order): ShippingLabel
+      + trackShipment(String): ShipmentStatus
+    }
+
+    class NotificationService {
+      + sendEmail(String to, String subject, String body)
+      + sendSms(String to, String message)
+    }
+
+    class InventoryManager {
+      + updateStock(Product, int change)
+      + getStockLevel(Product): int
+    }
+
+    class SearchService {
+      + searchProducts(String query): List<Product>
+      + searchCategories(String query): List<Category>
+    }
+  }
+
+  ' Defines the data structures and value objects
+  package "Value Objects" {
+    class Address {
+      + String street
+      + String city
+      + String state
+      + String zipCode
+    }
+
+    class CreditCard {
+      - String cardNumber
+      - Date expiryDate
+      - String cvv
+    }
+
+    class PayPalAccount {
+      - String email
+    }
+
+    class Category {
+      + String name
+    }
+
+    class PaymentResult {
+      + PaymentStatus status
+      + String transactionId
+    }
+  }
+}
+
+' Establish relationships between the components
+
+Customer "1" *-- "0..*" Order
+Order "1" *-- "1..*" LineItem
+LineItem "1" --> "1" Product
+Product "0..*" -- "1" Category
+
+Order ..> PaymentProcessor: uses >
+Order ..> ShippingService: uses >
+Order --> NotificationService: notifies >
+Product ..> InventoryManager: manages >
+Customer ..> SearchService: searches >
+
+' Add some notes to further enrich the diagram
+note right of Customer : A user who has made a purchase.
+note top of Order : Represents a single transaction.
+note bottom of PaymentProcessor : Handles all payment logic.
+note "This is a detailed diagram showing\nmultiple components and their interactions." as N1
+@enduml
 ```

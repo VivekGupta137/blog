@@ -1,6 +1,8 @@
 import type { MDXComponents } from "mdx/types";
 import Mermaid from "./src/components/Mermaid";
 import CodeBlock from "./src/components/CodeBlock";
+import ScrollablePlantUML from "./src/components/ScrollablePlantUML";
+import React, { ReactNode } from "react";
 
 const components: MDXComponents = {
     // Add your custom components here
@@ -8,26 +10,32 @@ const components: MDXComponents = {
     // h1: (props) => <h1 className="text-2xl font-bold" {...props} />,
     // p: (props) => <p className="text-base" {...props} />,
     code: (props) => {
-        const { children, ...rest } = props;
-
+        const { children, className: _, ref, ...rest } = props;
+        
         return (
             <code
                 {...rest}
                 className="hover:bg-gray-100 rounded-md py-0.5
  font-mono text-sm text-gray-800 "
             >
-                {children}
+                {children as ReactNode}
             </code>
         );
     },
     pre: (props) => {
-        const { children, ...rest } = props;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { children, ref, ...rest } = props;
         if (children && typeof children === "object" && "props" in children) {
             const { className, children: code } = children.props;
 
             // Handle mermaid diagrams
             if (className === "language-mermaid" && typeof code === "string") {
                 return <Mermaid>{code}</Mermaid>;
+            }
+
+            // Handle plantuml diagrams
+            if (className === "language-plantuml" && typeof code === "string") {
+                return <ScrollablePlantUML src={code} alt="PlantUML Diagram" />;
             }
 
             // Handle regular code blocks
@@ -87,7 +95,7 @@ const components: MDXComponents = {
                 );
             }
         }
-        return <pre {...rest}>{children}</pre>;
+        return <pre {...rest}>{children as ReactNode}</pre>;
     },
 };
 

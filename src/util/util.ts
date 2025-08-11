@@ -53,7 +53,7 @@ function buildFileTree(dir: string, basePath = ""): FileTreeItem[] {
                 name: item.name,
                 isSelectable: true,
                 type: "file",
-                url: `/blog/${relativePath.replace(".mdx", "")}`,
+                url: `/${relativePath.replace(".mdx", "")}`,
             });
         }
     }

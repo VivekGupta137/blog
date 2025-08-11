@@ -1,6 +1,26 @@
 import fs from "fs";
 import path from "path";
 
+import type { Metadata, ResolvingMetadata } from "next";
+
+type Props = {
+    params: Promise<{ slug: string[] }>;
+};
+
+export async function generateMetadata(
+    { params }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    // read route params
+    const { slug } = await params;
+
+    return {
+        title:
+            decodeURIComponent(slug[slug.length - 1]).toUpperCase() ??
+            "Untitled",
+    };
+}
+
 function getAllMdxFiles(dir: string, basePath: string = ""): string[] {
     const files: string[] = [];
     const items = fs.readdirSync(dir, { withFileTypes: true });

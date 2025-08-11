@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <div className="flex gap-4 my-8 justify-center">
-            <Link
+            {/* <Link
                 href="/"
                 className={currentPath === "/" ? "font-bold underline" : ""}
             >
@@ -22,7 +22,7 @@ const Navbar = () => {
                 }
             >
                 About
-            </Link>
+            </Link> */}
             <Link
                 href="/blog"
                 className={

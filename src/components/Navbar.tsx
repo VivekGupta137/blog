@@ -24,9 +24,9 @@ const Navbar = () => {
                 About
             </Link> */}
             <Link
-                href="/blog"
+                href="/"
                 className={
-                    currentPath.includes("/blog") ? "font-bold underline" : ""
+                    currentPath.includes("/") ? "font-bold underline" : ""
                 }
             >
                 Blog

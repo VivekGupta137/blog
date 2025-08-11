@@ -3,6 +3,8 @@ import path from "path";
 
 import type { Metadata, ResolvingMetadata } from "next";
 
+
+
 type Props = {
     params: Promise<{ slug: string[] }>;
 };

@@ -3,20 +3,31 @@ import Mermaid from "./src/components/Mermaid";
 import CodeBlock from "./src/components/CodeBlock";
 import ScrollablePlantUML from "./src/components/ScrollablePlantUML";
 import React, { ReactNode } from "react";
+import { JetBrains_Mono } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const jetbrains_mono = JetBrains_Mono({
+    subsets: ["latin"],
+    variable: "--font-jetbrains-mono",
+});
 
 const components: MDXComponents = {
     // Add your custom components here
     // For example:
-    // h1: (props) => <h1 className="text-2xl font-bold" {...props} />,
+    h2: (props) => {
+        const { children, className: _, ref, ...rest } = props;
+        return <h2 className="text-4xl font-[500px]">{children as ReactNode}</h2>;
+    },
     // p: (props) => <p className="text-base" {...props} />,
     code: (props) => {
         const { children, className: _, ref, ...rest } = props;
-        
+
         return (
             <code
-                {...rest}
-                className="hover:bg-gray-100 rounded-md py-0.5
- font-mono text-sm text-gray-800 "
+                className={cn(
+                    "before:content-[''] after:content-[''] border rounded-md px-1 py-0.5 bg-gray-100 dark:bg-gray-800 text-sm font-mono text-gray-900 dark:text-gray-100 ",
+                    jetbrains_mono.className
+                )}
             >
                 {children as ReactNode}
             </code>

@@ -7,6 +7,7 @@ import { JetBrains_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import GesturePlantUML from "@/components/GesturePlantUML";
 import ShikiCodeBlock from "@/components/ShikiCodeBlock";
+import { ProsList, ConsList } from "./src/components/ProsCons";
 
 const jetbrains_mono = JetBrains_Mono({
     subsets: ["latin"],
@@ -16,6 +17,8 @@ const jetbrains_mono = JetBrains_Mono({
 const components: MDXComponents = {
     // Add your custom components here
     // For example:
+    ProsList,
+    ConsList,
     h2: (props) => {
         const { children, className: _, ref, ...rest } = props;
         return (

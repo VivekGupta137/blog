@@ -1,0 +1,50 @@
+/* Pros and Cons Lists */
+.list-pros ul,
+.list-cons ul {
+    list-style-type: none !important;
+    padding-left: 0 !important;
+    margin-top: 0 !important;
+}
+
+.list-pros li,
+.list-cons li {
+    position: relative !important;
+    padding-left: 2rem !important;
+}
+
+.list-pros li::before,
+.list-cons li::before {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0.25rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    font-weight: bold !important;
+    border-radius: 50% !important;
+}
+
+.list-pros li::before {
+    content: "✓" !important;
+    color: #22c55e !important;
+}
+
+.list-cons li::before {
+    content: "✕" !important;
+    color: #ef4444 !important;
+    /* background-color: #ef4444 !important; /* red-500 */
+}
+
+/* Fix for nested lists */
+.list-pros li li::before,
+.list-cons li li::before {
+    display: none !important;
+}
+
+.list-pros li:hover::before,
+.list-cons li:hover::before {
+    transform: scale(1.2) !important;
+    transition: transform 0.2s ease-in-out !important;
+}

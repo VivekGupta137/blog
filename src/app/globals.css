@@ -175,12 +175,14 @@ pre[class*="language-"] {
     display: inline-block;
     width: 0.9em;
     height: 0.9em;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     opacity: 0.6;
-    transition: opacity 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    top: -10px;
+    transform: translateY(-5px);
 }
 
 /* Show icon on heading hover */
@@ -199,6 +201,7 @@ h6:hover .icon-link {
 
 .icon-link:hover::before {
     opacity: 1;
+    transform: scale(1.1) translateY(-5px);
 }
 
 /* Mobile-specific styles */
@@ -386,5 +389,9 @@ h6:hover .icon-link {
 }
 
 .shiki .highlighted::before {
-    color: rgba(0, 0, 0, 0.8); /* Darker for highlighted lines */
+    color: rgba(199, 199, 199, 0.8); /* Darker for highlighted lines */
+}
+
+.icon .icon-link {
+    @apply text-primary hover:text-primary-foreground;
 }

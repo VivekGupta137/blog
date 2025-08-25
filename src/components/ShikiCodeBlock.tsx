@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { convertRangeStringToArray } from "@/util/util";
 import type { BundledLanguage } from "shiki";
 import { codeToHtml } from "shiki";
@@ -16,10 +17,6 @@ const ShikiCodeBlock = async (props: Props) => {
     const out = await codeToHtml(props.children, {
         lang: props.lang,
         theme: "vitesse-light",
-        meta: {
-            filename: "example.ts",
-            lineNumbers: true,
-        },
         transformers: [
             {
                 pre(node) {
@@ -30,7 +27,15 @@ const ShikiCodeBlock = async (props: Props) => {
                     if (lineNumbers.includes(line))
                         this.addClassToHast(
                             node,
-                            "highlighted pr-4 pl-[14px] -mx-4 inline-block w-fit min-w-[calc(100%+32px)] bg-gray-50 transition-all group-hover:bg-gray-100 dark:bg-green-900/20 border-l-2 border-l-green-500 box-border"
+                            "highlighted pr-4 pl-[14px] duration-300 -mx-4 inline-block w-fit min-w-[calc(100%+32px)] bg-gray-50 transition-all group-hover:bg-gray-100 dark:bg-green-900/20 border-l-2 border-l-green-500 box-border"
+                        );
+                    else
+                        this.addClassToHast(
+                            node,
+                            cn(
+                                lineNumbers.length > 0 &&
+                                    "not-highlighted group-hover:opacity-70 transition-all duration-300"
+                            )
                         );
                 },
             },

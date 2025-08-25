@@ -355,10 +355,35 @@ h6:hover .icon-link {
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+    body {
+        @apply bg-background text-foreground;
     }
+}
+
+.gesture-plant-uml img {
+    touch-action: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+}
+
+.shiki {
+    counter-reset: line;
+}
+
+.shiki [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 1rem;
+    margin-right: 1rem;
+    text-align: right;
+    color: rgba(115, 138, 148, 0.6); /* Muted text color */
+}
+
+.shiki .highlighted::before {
+    color: rgba(0, 0, 0, 0.8); /* Darker for highlighted lines */
 }

@@ -5,6 +5,8 @@ import ScrollablePlantUML from "./src/components/ScrollablePlantUML";
 import React, { ReactNode } from "react";
 import { JetBrains_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
+import GesturePlantUML from "@/components/GesturePlantUML";
+import ShikiCodeBlock from "@/components/ShikiCodeBlock";
 
 const jetbrains_mono = JetBrains_Mono({
     subsets: ["latin"],
@@ -16,7 +18,11 @@ const components: MDXComponents = {
     // For example:
     h2: (props) => {
         const { children, className: _, ref, ...rest } = props;
-        return <h2 {...rest} className="text-4xl font-[500px]">{children as ReactNode}</h2>;
+        return (
+            <h2 {...rest} className="text-4xl font-[500px]">
+                {children as ReactNode}
+            </h2>
+        );
     },
     // p: (props) => <p className="text-base" {...props} />,
     code: (props) => {
@@ -46,7 +52,7 @@ const components: MDXComponents = {
 
             // Handle plantuml diagrams
             if (className === "language-plantuml" && typeof code === "string") {
-                return <ScrollablePlantUML src={code} alt="PlantUML Diagram" />;
+                return <GesturePlantUML src={code} alt="PlantUML Diagram" />;
             }
 
             // Handle regular code blocks
@@ -95,14 +101,13 @@ const components: MDXComponents = {
                 }
 
                 return (
-                    <CodeBlock
-                        language={language}
-                        filename={filename}
+                    <ShikiCodeBlock
+                        lang={language}
                         highlightLines={highlightLines}
-                        showLineNumbers={true}
+                        filename={filename}
                     >
                         {cleanCode}
-                    </CodeBlock>
+                    </ShikiCodeBlock>
                 );
             }
         }

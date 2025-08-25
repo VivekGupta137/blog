@@ -102,3 +102,25 @@ export const getContentFileTree = (): ReturnType<typeof buildFileTree> => {
     const contentDir = path.join(process.cwd(), "src", "content");
     return buildFileTree(contentDir);
 };
+
+/**
+ * Converts a string of number ranges like "6-7,15-17,26-30" into an array
+ * containing all numbers in those ranges.
+ * 
+ * @param rangeString - A string containing number ranges separated by commas
+ * @returns An array of numbers represented by the ranges
+ */
+export function convertRangeStringToArray(rangeString: string): number[] {
+  if (!rangeString.trim()) return [];
+  
+  return rangeString.split(',').flatMap(range => {
+    if (range.includes('-')) {
+      const [start, end] = range.split('-').map(Number);
+      return Array.from(
+        { length: end - start + 1 }, 
+        (_, i) => start + i
+      );
+    }
+    return [Number(range)];
+  });
+}

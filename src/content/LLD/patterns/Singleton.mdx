@@ -4,23 +4,23 @@ Singleton Pattern is a creational design pattern that guarantees a class has onl
 
 ## Pros and Cons
 
-<ProsList title="Advantages">
+<SuccessQuote title="Advantages">
 
 - **Global Access Point**: Provides a single point of access to a shared resource
 - **Lazy Initialization**: Instance is created only when needed
 - **Single Instance**: Ensures only one instance exists throughout the application
 - **Reduced Memory Footprint**: Avoids creating multiple instances of resource-heavy objects
 
-</ProsList>
+</SuccessQuote>
 
-<ConsList title="Disadvantages">
+<ErrorQuote title="Disadvantages">
 
 - **Global State**: Introduces shared global state which can be difficult to debug
 - **Testing Difficulty**: Makes unit testing more complex due to shared state
 - **Thread Safety Concerns**: Requires special handling in multi-threaded environments
 - **Violates SRP**: The class handles both its own functionality and lifecycle management
 
-</ConsList>
+</ErrorQuote>
 
 ## Contents
 
@@ -48,11 +48,13 @@ Ways to implement the singleton pattern -
 
 This approach creates the singleton instance only when it is needed, saving resources if the singleton is never used in the application.
 
+<InfoQuote>
 #### Code
 1. Checks if an instance already exists `(instance == null)`.
 2. If not, it creates a new instance.
 3. If an instance already exists, it skips the creation step.
 
+</InfoQuote>
 
 ```java
 public class Singleton {
@@ -72,25 +74,26 @@ public class Singleton {
 ```
 
 
-<ProsList title="Pros of Lazy Initialization">
+<SuccessQuote title="Pros of Lazy Initialization">
 
 - Controlled access to the sole instance
 - Reduced memory footprint
 - Global point of access
 
-</ProsList>
+</SuccessQuote>
 
-<ConsList title="Cons of Lazy Initialization">
+<ErrorQuote title="Cons of Lazy Initialization">
 
 - Not thread-safe; requires synchronization for multi-threaded applications
 
-</ConsList>
+</ErrorQuote>
 
 
 ### 2. Thread-Safe Singleton
 
 Same as lazy initialization, but with added synchronization to ensure thread safety.
 
+<InfoQuote>
 #### Code
 
 This is achieved by making the `getInstance()` method synchronized ensuring only one thread can execute this method at a time.
@@ -99,7 +102,7 @@ When a thread enters the synchronized method, it acquires a lock on the class ob
 
 1. The `synchronization` keyword ensures that only one thread can perform the `(instance == null)` check and create the object.
 2. If another thread tries to access the `getInstance()` method while one thread is already executing it, it will wait until the first thread completes its execution.
-
+</InfoQuote>
 
 ```java
 // highlight=8
@@ -119,20 +122,20 @@ public class Singleton {
 }
 ```
 
-<ProsList title="Pros of Thread-Safe Singleton">
+<SuccessQuote title="Pros of Thread-Safe Singleton">
 
 - Controlled access to the sole instance
 - Thread-safe
 - Global point of access
 
-</ProsList>
+</SuccessQuote>
 
-<ConsList title="Cons of Thread-Safe Singleton">
+<ErrorQuote title="Cons of Thread-Safe Singleton">
 
 - Performance overhead due to synchronization
 - Can lead to contention* in multi-threaded applications
 
-</ConsList>
+</ErrorQuote>
 
 \* **contention** refers to the competition among multiple threads for access to shared resources. when one thread acquires a lock on a shared resource, and other threads that also need to access that same resource are forced to wait until the first thread releases the lock. This waiting period is a form of contention and can lead to performance bottlenecks, as threads are not able to execute concurrently as intended.
 
@@ -142,12 +145,14 @@ This approach minimizes performance overhead from synchronization by only synchr
 
 It uses the `volatile` keyword to ensure that changes to the instance variable are immediately visible to other threads.
 
+<InfoQuote>
 #### Code
 - If the first check `(instance == null)` passes, we synchronize on the class object.
 
 - We check the same condition one more time because multiple threads may have passed the first check.
 
 - The instance is created only if both checks pass.
+</InfoQuote>
 
 ```java
 // highlight=10-14
@@ -171,20 +176,20 @@ public class Singleton {
 }
 ```
 
-<ProsList title="Pros of Double-Checked Locking">
+<SuccessQuote title="Pros of Double-Checked Locking">
 
 - Controlled access to the sole instance
 - Thread-safe
 - Reduced performance overhead compared to synchronized method
 
-</ProsList>
+</SuccessQuote>
 
-<ConsList title="Cons of Double-Checked Locking">
+<ErrorQuote title="Cons of Double-Checked Locking">
 
 - More complex implementation
 - Still has some performance overhead due to synchronization
 
-</ConsList>
+</ErrorQuote>
 
 ### 4. Eager Initialization
 
@@ -194,11 +199,12 @@ In this method, we rely on the JVM to create the singleton instance when the cla
 
 This implementation is one of the simplest and inherently thread-safe without needing explicit synchronization.
 
+<InfoQuote>
 #### Code
 
 * The `static variable` ensures there's only one instance shared across all instances of the class.
 * `final` prevents the instance from being reassigned after initialization
-
+</InfoQuote>
 ```java
 // highlight=2
 public class Singleton {
@@ -214,20 +220,20 @@ public class Singleton {
 }
 ```
 
-<ProsList title="Pros of Eager Initialization">
+<SuccessQuote title="Pros of Eager Initialization">
 
 - Simple and easy to implement
 - Thread-safe without synchronization
 - Instance is created at class loading time, ensuring it's always available
 
-</ProsList>
+</SuccessQuote>
 
-<ConsList title="Cons of Eager Initialization">
+<ErrorQuote title="Cons of Eager Initialization">
 
 - Instance is created even if it's never used, which can lead to unnecessary resource consumption
 - We cannot catch exceptions during instance creation
 
-</ConsList>
+</ErrorQuote>
 
 ### 5. Bill Pugh Singleton or Lazy Holder Singleton
 This is a variation of the lazy initialization pattern that uses a **static inner helper class** to hold the
@@ -238,6 +244,7 @@ It is thread-safe without requiring explicit synchronization.
 
 The Bill Pugh Singleton implementation, while more complex than Eager Initialization provides a perfect balance of lazy initialization, thread safety, and performance, without the complexities of some other patterns like double-checked locking.
 
+<InfoQuote>
 #### Code
 
 - When the `getInstance()` method is called for the first time, it triggers the loading of the SingletonHelper class.
@@ -245,7 +252,7 @@ The Bill Pugh Singleton implementation, while more complex than Eager Initializa
 - When the inner class is loaded, it creates the `INSTANCE` of BillPughSingleton.
 
 - The final keyword ensures that the `INSTANCE` cannot be reassigned.
-
+</InfoQuote>
 ```java
 public class BillPughSingleton {
     private BillPughSingleton() {
@@ -262,19 +269,19 @@ public class BillPughSingleton {
 }
 ```
 
-<ProsList title="Pros of Bill Pugh Singleton">
+<SuccessQuote title="Pros of Bill Pugh Singleton">
 
 - Thread-safe without synchronization
 - Lazy initialization
 - No performance overhead from synchronization
 
-</ProsList>
+</SuccessQuote>
 
-<ConsList title="Cons of Bill Pugh Singleton">
+<ErrorQuote title="Cons of Bill Pugh Singleton">
 
 - More complex implementation
 
-</ConsList>
+</ErrorQuote>
 
 ### 6. Enum Singleton
 In this method, the singleton is declared as an enum rather than a class.
@@ -283,7 +290,6 @@ Java ensures that only one instance of an enum value is created, even in a multi
 
 The Enum Singleton pattern is the most robust and concise way to implement a singleton in Java.
 
-#### Code
 
 ```java
 // highlight=2,10
@@ -302,21 +308,21 @@ public class Main {
 }
 ```
 
-<ProsList title="Pros of Enum Singleton">
+<SuccessQuote title="Pros of Enum Singleton">
 
 - Simple and concise implementation
 - Thread-safe by design
 - No need for synchronization
 
-</ProsList>
+</SuccessQuote>
 
-<ConsList title="Cons of Enum Singleton">
+<ErrorQuote title="Cons of Enum Singleton">
 
 - Cannot extend the enum class, limiting flexibility
 - Serialization can be tricky as enums are inherently serializable
 - Potential issues with serialization/deserialization breaking singleton property
 
-</ConsList>
+</ErrorQuote>
 
 
 ### 7. Static Block Initialization
@@ -324,7 +330,7 @@ This is similar to **eager initialization**, but the instance is created in a st
 
 It provides the ability to handle exceptions during instance creation, which is not possible with simple eager initialization.
 
-#### Code
+
 ```java
 // highlight=4-10,17
 public class StaticBlockSingleton {
@@ -349,27 +355,27 @@ public class StaticBlockSingleton {
 ```
 
 
-<ProsList title="Pros of Static Block Initialization">
+<SuccessQuote title="Pros of Static Block Initialization">
 
 - Simple and easy to implement
 - Thread-safe without synchronization
 - Allows exception handling during instance creation
 
-</ProsList>
+</SuccessQuote>
 
-<ConsList title="Cons of Static Block Initialization">
+<ErrorQuote title="Cons of Static Block Initialization">
 
 - More complex implementation
 - Instance is created at class loading time, which can lead to unnecessary resource consumption if the instance is never used
 
-</ConsList>
+</ErrorQuote>
 
 
 ### 8. ThreadLocal Singleton
 This approach uses a ThreadLocal variable to ensure that each thread has its own instance of the singleton.
 This is useful in scenarios where each thread needs its own instance of the singleton, such as in web applications where each request is handled by a separate thread.
 
-#### Code
+
 
 ```java
 public class ThreadLocalSingleton {
@@ -385,25 +391,25 @@ public class ThreadLocalSingleton {
 }
 ```
 
-<ProsList title="Pros of ThreadLocal Singleton">
+<SuccessQuote title="Pros of ThreadLocal Singleton">
 
 - Each thread has its own instance, avoiding contention
 - Reduces memory footprint by not sharing instances between threads
 - Useful in multi-threaded applications where each thread needs its own instance
 
-</ProsList>
+</SuccessQuote>
 
-<ConsList title="Cons of ThreadLocal Singleton">
+<ErrorQuote title="Cons of ThreadLocal Singleton">
 
 - Increased complexity
 - Not suitable for scenarios where a single instance is needed across all threads
 
-</ConsList>
+</ErrorQuote>
 
 ### 9. Registry Singleton
 This approach allows for multiple singleton instances, each identified by a unique key. It provides a registry to manage these instances.
 
-#### Code
+
 
 ```java
 import java.util.HashMap;
@@ -422,18 +428,18 @@ public class RegistrySingleton {
 }
 ```
 
-<ProsList title="Pros of Registry Singleton">
+<SuccessQuote title="Pros of Registry Singleton">
 
 - Allows for multiple singleton instances identified by unique keys
 - Provides a centralized registry for managing instances
 - Can be useful in scenarios where different configurations are needed for different instances
 
-</ProsList>
+</SuccessQuote>
 
-<ConsList title="Cons of Registry Singleton">
+<ErrorQuote title="Cons of Registry Singleton">
 
 - Increased complexity
 - Potential memory overhead due to storing multiple instances
 - Synchronization may be needed if accessed by multiple threads
 
-</ConsList>
+</ErrorQuote>

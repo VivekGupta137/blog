@@ -3,8 +3,6 @@ import path from "path";
 
 import type { Metadata, ResolvingMetadata } from "next";
 
-
-
 type Props = {
     params: Promise<{ slug: string[] }>;
 };
@@ -17,9 +15,7 @@ export async function generateMetadata(
     const { slug } = await params;
 
     return {
-        title:
-            decodeURIComponent(slug[slug.length - 1]).toUpperCase() ??
-            "Untitled",
+        title: decodeURIComponent(slug[slug.length - 1]) ?? "Blog",
     };
 }
 

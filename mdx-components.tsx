@@ -8,6 +8,10 @@ import { cn } from "@/lib/utils";
 import GesturePlantUML from "@/components/GesturePlantUML";
 import ShikiCodeBlock from "@/components/ShikiCodeBlock";
 import { ProsList, ConsList } from "./src/components/ProsCons";
+import Quote from "@/components/Quote";
+import SuccessQuote from "@/components/SuccessQuote";
+import ErrorQuote from "@/components/ErrorQuote";
+import InfoQuote from "@/components/InfoQuote";
 
 const jetbrains_mono = JetBrains_Mono({
     subsets: ["latin"],
@@ -19,6 +23,10 @@ const components: MDXComponents = {
     // For example:
     ProsList,
     ConsList,
+    Quote,
+    SuccessQuote,
+    ErrorQuote,
+    InfoQuote,
     h2: (props) => {
         const { children, className: _, ref, ...rest } = props;
         return (

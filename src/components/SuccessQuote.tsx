@@ -10,7 +10,6 @@ const SuccessQuote = ({ children }: { children: React.ReactNode }) => {
                 </div>
                 <div className="bg-green-500 w-1 h-full rounded-full "></div>
             </div>
-
             <div className="bg-green-50 basis-full">{children}</div>
         </Quote>
     );

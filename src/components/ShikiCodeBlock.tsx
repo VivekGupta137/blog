@@ -2,12 +2,15 @@ import { cn } from "@/lib/utils";
 import { convertRangeStringToArray } from "@/util/util";
 import type { BundledLanguage } from "shiki";
 import { codeToHtml } from "shiki";
+import ShikiCodeBlockHeader from "./ShikiCodeBlockHeader";
+import ShikiCodeBlockContent from "./ShikiCodeBlockContent";
 
 interface Props {
     children: string;
     lang: BundledLanguage;
     highlightLines?: string;
     filename?: string;
+    collapsed: boolean;
 }
 const ShikiCodeBlock = async (props: Props) => {
     const lineNumbers = props.highlightLines
@@ -43,17 +46,16 @@ const ShikiCodeBlock = async (props: Props) => {
     });
 
     return (
-        <div className="relative group">
-            {props.filename && (
-                <div className=" absolute group-hover:underline -top-4 border border-black font-mono font-bold left-0 bg-gray-100 dark:bg-gray-800 rounded-md px-2 py-1 text-sm">
-                    {props.filename}
-                </div>
-            )}
-
-            <div
-                className=" text-lg sm:text-xl rounded-md border-black border-dashed sm:-mx-6"
-                dangerouslySetInnerHTML={{ __html: out }}
-            />
+        <div className="relative group mt-5 min-h-4">
+            <ShikiCodeBlockContent
+                filename={props.filename}
+                initiallyExpanded={!props.collapsed}
+            >
+                <div
+                    className=" text-lg sm:text-xl rounded-md border-black border-dashed sm:-mx-6"
+                    dangerouslySetInnerHTML={{ __html: out }}
+                />
+            </ShikiCodeBlockContent>
         </div>
     );
 };

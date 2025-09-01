@@ -42,7 +42,7 @@ const components: MDXComponents = {
         return (
             <code
                 className={cn(
-                    "before:content-[''] after:content-[''] border rounded-md px-1 py-0.5 bg-gray-100 dark:bg-gray-800 text-sm font-mono text-gray-900 dark:text-gray-100 ",
+                    "before:content-[''] after:content-[''] px-2 py-1 bg-muted hover:bg-muted/60  font-mono  ",
                     jetbrains_mono.className
                 )}
             >
@@ -73,6 +73,7 @@ const components: MDXComponents = {
                 // Extract fi\lename and highlight info from code if it starts with a comment
                 let filename;
                 let highlightLines;
+                let collapsed = false;
                 let cleanCode = code;
                 const lines = code.split("\n");
 
@@ -85,12 +86,17 @@ const components: MDXComponents = {
 
                     // Check for filename
                     const filenameMatch = firstLine.match(
-                        /^(?:\/\/|#)\s*(.+\.[a-zA-Z]+)(?:\s+highlight=(.+))?$/
+                        /^(?:\/\/|#)\s*(.+\.[a-zA-Z]+)?(?:\s*highlight=([0-9,]+))?(?:\s*(collapse))?$/i
                     );
+
                     if (filenameMatch) {
                         filename = filenameMatch[1];
+
                         if (filenameMatch[2]) {
                             highlightLines = filenameMatch[2];
+                        }
+                        if (filenameMatch[3]) {
+                            collapsed = true;
                         }
                         cleanCode = lines
                             .slice(1)
@@ -116,6 +122,7 @@ const components: MDXComponents = {
                         lang={language}
                         highlightLines={highlightLines}
                         filename={filename}
+                        collapsed={collapsed}
                     >
                         {cleanCode}
                     </ShikiCodeBlock>

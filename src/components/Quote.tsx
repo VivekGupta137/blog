@@ -9,13 +9,15 @@ const Quote = ({
     className?: ClassValue;
 }) => {
     return (
-        <div
-            className={cn(
-                className ?? "border-l-4 pl-4 border-gray-500",
-                "mt-8 mb-4"
-            )}
-        >
-            {children}
+        <div className="ml-4">
+            <div
+                className={cn(
+                    className ?? "border-l-4 pl-4 border-gray-500",
+                    "mt-8 mb-4"
+                )}
+            >
+                {children}
+            </div>
         </div>
     );
 };
